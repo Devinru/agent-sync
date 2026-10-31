@@ -1,0 +1,25 @@
+{
+  "adapter_id": "codex-windows",
+  "adapter_version": "0.1.0",
+  "protocol_major": 2,
+  "framework": "codex",
+  "supported_os": ["windows"],
+  "tested_client_versions": ["0.164.0-alpha.11.1"],
+  "implementation_status": "partial",
+  "capabilities": {
+    "export_native": true,
+    "translate_durable_registry": true,
+    "plan_import": true,
+    "apply_import": true,
+    "verify_native_recall": false,
+    "verify_local_bridge_recall": true,
+    "preserve_provenance": true,
+    "retire_imported_record": true,
+    "external_write_to_generated_native_memory": false,
+    "native_ad_hoc_pointer_note": true,
+    "one_time_confirmed_persona_bootstrap": true,
+    "automatic_identity_update": false,
+    "publish": false
+  },
+  "guide": "guides/codex.md"
+}

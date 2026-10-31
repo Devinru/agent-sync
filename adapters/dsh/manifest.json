@@ -1,0 +1,58 @@
+{
+  "adapter_id": "dsh-windows",
+  "adapter_version": "0.3.1",
+  "protocol_major": 2,
+  "framework": "dsh-longterm-memory",
+  "supported_os": [
+    "windows"
+  ],
+  "tested_client_versions": [
+    "dsh 0.2.1-rc.3",
+    "dsh-longterm-memory 0.1.4"
+  ],
+  "implementation_status": "partial",
+  "capabilities": {
+    "export_native": true,
+    "plan_import": true,
+    "apply_import": true,
+    "verify_native_recall": true,
+    "preserve_provenance": true,
+    "retire_imported_record": true
+  },
+  "adapter_only_capabilities": {
+    "merge_identity_into_persona": true,
+    "scheduled_periodic_sync": true,
+    "auto_discover_host_rpc_port": true
+  },
+  "verified_scope": {
+    "roundtrip_hash_identical": 51,
+    "imported_and_verified": 47,
+    "idempotent_rerun": true,
+    "retire_and_revive": true,
+    "recall_after_import": true,
+    "local_delete_does_not_delete_remote": true,
+    "publish_roundtrip": "两次真实推送：95121fe（1 条）、a9ec706（3 条 create + 1 条 update），均经 git fetch 校验 origin/master 与本地 head 一致",
+    "mapping_repair_after_failed_verify": "23 条因首版假性手改导致验证失败、映射未推进；修复后由 cli 重新导入并自建映射，现共享 53 / 本地 51 / 映射 51 / 待推 0",
+    "identity_merged_into_persona": "identity/soul.md + identity/rules.md → cordis.patch.yml 的 persona.config.prefix，6176 字符 / 238 行，受保护块逐字在",
+    "periodic_task_ran": "Windows 计划任务 AgentSync-DSH-Periodic，每三周周日 09:30，手动触发 Last Result 0",
+    "rpc_port_rediscovery": "宿主重启后 GUI 端口从 12557 变为 12010，自动发现链（env → 缓存 → 历史端口 → 12000-13100 并发扫描）无需人工配置"
+  },
+  "unverified_scope": [
+    "soul / rule 自动导入：按协议一律跳过；只能人工单向合并进本机人格，反向不成立",
+    "宿主未启动时：文件层写入仍然可行，但索引同步与读回校验不可用（degraded）",
+    "重启后新人格是否每轮生效：改了 cordis.patch.yml，需重启宿主确认",
+    "多端同时改动同一条记录：只验证过单端推进，未构造过双向同时修改的冲突复现"
+  ],
+  "known_issues": [
+    "cli.py 读 git 输出按 gbk 解码，中文日志会抛 UnicodeDecodeError（异常线程，不影响发布结果，属共享代码，需提案才能改）",
+    "共享记录的 title 里若含 ' #' 或 ' ##'，插件写入 frontmatter 时会被 YAML 当注释截断，需在本地把 title 改成不含井号再导出",
+    "宿主 RPC 端口每次启动重新分配且不落盘，只能靠探测；端口缓存失效时会触发一次区间扫描（约 1-2 秒）"
+  ],
+  "entrypoints": {
+    "cli": "python adapters/dsh/run.py <子命令>",
+    "inspect": "python adapters/dsh/reindex.py inspect",
+    "selfcheck": "python adapters/dsh/selfcheck.py roundtrip",
+    "periodic": "python adapters/dsh/periodic.py"
+  },
+  "guide": "guides/dsh.md"
+}

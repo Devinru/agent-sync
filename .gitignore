@@ -1,0 +1,14 @@
+*.log
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+
+# 运行时产物
+changes/
+dedupe-log/
+state.json
+review.md

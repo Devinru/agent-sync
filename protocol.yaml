@@ -1,0 +1,15 @@
+protocol_version: "2.0"
+record_schema: 2
+encoding: utf-8
+record_format: markdown-yaml-frontmatter
+id_format: uuid4
+approval_required_for_shared_changes: true
+max_record_bytes: 65536
+max_yaml_header_bytes: 4096
+sync_mode: manual
+features:
+  - bidirectional-adapters
+  - local-proposals
+  - revision-and-base-check
+  - explicit-retirement
+  - per-client-guides
