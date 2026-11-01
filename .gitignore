@@ -12,3 +12,6 @@ changes/
 dedupe-log/
 state.json
 review.md
+
+# 本机专属的隐私规则，不进仓库
+.pii-patterns
